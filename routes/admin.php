@@ -4,7 +4,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Jobs\ProcessPodcast;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/coupons/update/{id}', [CouponController::class, 'update'])->name('coupons.update');
         Route::post('/coupons/status/{status}/{id}', [CouponController::class, 'status'])->name('coupons.status');
         Route::delete('/coupons/delete/{id}', [CouponController::class, 'delete'])->name('coupons.delete');
+
+        Route::get('/users', [UserController::class, 'index']);
+        Route::get('/admins', [AdminController::class, 'index']);
 
         //order
         Route::get('/orders', [OrderController::class, 'index'])->name('order');

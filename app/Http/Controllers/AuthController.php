@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MyTestMail;
+use App\Jobs\SendWelcomeMailJob;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -60,11 +60,7 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            $details = [
-                'title' => 'Ecommerce',
-                'body' => 'This is the best ecommerce site.'
-            ];
-            Mail::to($request->email)->send(new MyTestMail($details));
+           SendWelcomeMailJob::dispatch($user);
 
             //session()->flash('success','You Have Register successfully');
             return redirect('login')->with('success', 'You Have Register successfully');
