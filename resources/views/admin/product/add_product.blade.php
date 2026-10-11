@@ -57,12 +57,31 @@
                                         </div>
                                     </div>
 
-                                    <!-- Product Details / Short Description -->
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="details" class="form-label fw-medium">Product Short Details <span class="text-danger">*</span></label>
-                                            <input id="details" name="details" type="text" class="form-control @error('details') is-invalid @enderror" value="{{ old('details') }}" placeholder="Brief introduction of product" required>
-                                            @error('details')
+                                            <label for="brand_id" class="form-label fw-medium"> Brand <span class="text-danger">*</span></label>
+                                            <select id="brand_id" name="brand_id" class="form-select form-select-lg @error('brand') is-invalid @enderror" required>
+                                                <option value="">Select Brand</option>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('brand')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="unit_id" class="form-label fw-medium"> Unit <span class="text-danger">*</span></label>
+                                            <select id="unit_id" name="unit_id" class="form-select form-select-lg @error('unit') is-invalid @enderror" required>
+                                                <option value="">Select Unit</option>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>{{ $unit->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('unit')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -71,12 +90,12 @@
                                     <!-- Pricing & Stock Row -->
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="price" class="form-label fw-medium">Product Price <span class="text-danger">*</span></label>
+                                            <label for="price" class="form-label fw-medium"> Purchase price <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text">Tk</span>
-                                                <input id="price" name="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" placeholder="0.00" required>
+                                                <input id="purchase_price" name="purchase_price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" placeholder="0.00" required>
                                             </div>
-                                            @error('price')
+                                            @error('purchase_price')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -84,12 +103,12 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="discount_price" class="form-label fw-medium">Discount Price</label>
+                                            <label for="selling_price" class="form-label fw-medium"> Selling Price</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">Tk</span>
-                                                <input id="discount_price" name="discount_price" type="number" step="0.01" class="form-control @error('discount_price') is-invalid @enderror" value="{{ old('discount_price') }}" placeholder="0.00">
+                                                <input id="selling_price" name="selling_price" type="number" step="0.01" class="form-control @error('selling_price') is-invalid @enderror" placeholder="0.00">
                                             </div>
-                                            @error('discount_price')
+                                            @error('selling_price')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -97,16 +116,28 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="quantity" class="form-label fw-medium">Stock Quantity <span class="text-danger">*</span></label>
-                                            <input id="quantity" name="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity', 0) }}" placeholder="0" required>
-                                            @error('quantity')
+                                            <label for="alert_quantity" class="form-label fw-medium"> Alert Quantity <span class="text-danger">*</span></label>
+                                            <input id="alert_quantity" name="alert_quantity" type="number" class="form-control @error('alert_quantity') is-invalid @enderror" placeholder="0" required>
+                                            @error('alert_quantity')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
 
+                                    <div class="col-6">
+                                        <div class="form-group mb-3">
+                                            <label for="sku" class="form-label fw-medium"> Sku <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="sku" name="sku" type="text" class="form-control @error('Sku') is-invalid @enderror" placeholder="sku number" required>
+                                            </div>
+                                            @error('sku')
+                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <!-- Barcode Field with Connected Button -->
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group mb-3">
                                             <label for="barcode" class="form-label fw-medium">Barcode <span class="text-danger">*</span></label>
                                             <div class="input-group">
@@ -117,6 +148,17 @@
                                             </div>
                                             @error('barcode')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                     <!-- Product Details -->
+                                    <div class="col-12">
+                                        <div class="form-group mb-3">
+                                            <label for="details" class="form-label fw-medium"> Product Short Details </label>
+                                            <input id="details" name="details" type="text" class="form-control @error('details') is-invalid @enderror" placeholder="Brief introduction of product">
+                                            @error('details')
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>

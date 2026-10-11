@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class CreateBrandsTable extends Migration
 {
@@ -23,6 +25,15 @@ class CreateBrandsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+         DB::table('brands')->insert([
+            'name'        => 'Easy',
+            'slug'        => Str::slug('Easy'),
+            'status'      => 1,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ]);
+     
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUnitsTable extends Migration
@@ -23,6 +24,15 @@ class CreateUnitsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+         DB::table('units')->insert([
+            'name'        => 'Pieces',
+            'short_name'        => 'pcs',
+            'allow_decimal' => 1,
+            'status'      => 1,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ]);
     }
 
     /**

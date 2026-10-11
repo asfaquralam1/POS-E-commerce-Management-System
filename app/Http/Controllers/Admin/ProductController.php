@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Unit;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -19,8 +21,10 @@ class ProductController extends Controller
     }
     public function manage_product()
     {
-        $categories = Category::all();
-        return view('admin.product.add_product', compact('categories'));
+        $categories = Category::where('parent_id', 1)->get();
+        $brands = Brand::all();
+        $units = Unit::all();
+        return view('admin.product.add_product', compact('categories', 'brands', 'units'));
     }
 
     public function add_product(Request $request)
@@ -100,7 +104,9 @@ class ProductController extends Controller
     public function edit_product($id)
     {
         $product = Product::find($id);
-        $categories = Category::all();
+        $categories = Category::where('parent_id', 1)->get();
+        $brands = Brand::all();
+        $units = Unit::all();
 
         // Prepare preloaded images for the imageUploader plugin
         $preloadedImages = [];
@@ -115,13 +121,12 @@ class ProductController extends Controller
             }
         }
 
-        return view('admin.product.edit_product', compact('product', 'categories', 'preloadedImages'));
+        return view('admin.product.edit_product', compact('product', 'brands', 'units', 'categories', 'preloadedImages'));
     }
 
     public function update_product(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|unique:products,name',
             'category_id' => 'required',
             'brand_id' => 'required',
             'unit_id' => 'required',
@@ -135,6 +140,7 @@ class ProductController extends Controller
 
         // Update basic fields
         $modal->name = $request->post('name');
+        $modal->details = $request->post('details');
         $modal->category_id = $request->post('category_id');
         $modal->brand_id = $request->post('brand_id');
         $modal->unit_id = $request->post('unit_id');

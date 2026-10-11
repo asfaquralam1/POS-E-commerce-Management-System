@@ -17,11 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id')->index();
             $table->string('name')->nullable();
-            $table->string('details');
+            $table->string('details')->nullable();
             $table->integer('purchase_price');
             $table->integer('selling_price');
             $table->integer('alert_quantity');
-            $table->integer('sku')->nullable();
+            $table->string('sku')->nullable();
             $table->string('image');
             $table->json('thumbnail');
             $table->string('barcode')->unique();

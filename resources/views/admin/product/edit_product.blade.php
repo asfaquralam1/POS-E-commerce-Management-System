@@ -53,24 +53,47 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="details" class="form-label fw-medium">Product Short Details <span class="text-danger">*</span></label>
-                                            <input id="details" name="details" type="text" class="form-control @error('details') is-invalid @enderror" value="{{ old('details', $product->details) }}" required>
-                                            @error('details')
+                                            <label for="brand_id" class="form-label fw-medium"> Brand <span class="text-danger">*</span></label>
+                                            <select id="brand_id" name="brand_id" class="form-select form-select-lg @error('brand_id') is-invalid @enderror" required>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
+                                                        {{ $brand->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('brand_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="unit_id" class="form-label fw-medium"> Unit <span class="text-danger">*</span></label>
+                                            <select id="unit_id" name="unit_id" class="form-select form-select-lg @error('unit_id') is-invalid @enderror" required>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id }}" {{ old('unit_id', $product->unit_id) == $unit->id ? 'selected' : '' }}>
+                                                        {{ $unit->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('unit_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="price" class="form-label fw-medium">Product Price <span class="text-danger">*</span></label>
+                                            <label for="purchase_price" class="form-label fw-medium"> Purchase Price <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text">Tk</span>
-                                                <input id="price" name="price" type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" value="{{ old('price', $product->price) }}" required>
+                                                <input id="purchase_price" name="purchase_price" type="number" step="0.01" class="form-control @error('purchase_price') is-invalid @enderror" value="{{ old('purchase_price', $product->purchase_price) }}" required>
                                             </div>
-                                            @error('price')
+                                            @error('purchase_price')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -78,12 +101,12 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="discount_price" class="form-label fw-medium">Discount Price</label>
+                                            <label for="selling_price" class="form-label fw-medium">Discount Price</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">Tk</span>
-                                                <input id="discount_price" name="discount_price" type="number" step="0.01" class="form-control @error('discount_price') is-invalid @enderror" value="{{ old('discount_price', $product->discount_price) }}">
+                                                <input id="selling_price" name="selling_price" type="number" step="0.01" class="form-control @error('selling_price') is-invalid @enderror" value="{{ old('selling_price', $product->selling_price) }}">
                                             </div>
-                                            @error('discount_price')
+                                            @error('selling_price')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -91,22 +114,19 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="quantity" class="form-label fw-medium">Stock Quantity <span class="text-danger">*</span></label>
-                                            <input id="quantity" name="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity', $product->quantity) }}" required>
-                                            @error('quantity')
+                                            <label for="alert_quantity" class="form-label fw-medium"> Alert Quantity <span class="text-danger">*</span></label>
+                                            <input id="alert_quantity" name="alert_quantity" type="number" class="form-control @error('alert_quantity') is-invalid @enderror" value="{{ old('alert_quantity', $product->alert_quantity) }}" required>
+                                            @error('alert_quantity')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-6">
                                         <div class="form-group mb-3">
                                             <label for="barcode" class="form-label fw-medium">Barcode <span class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <input id="barcode" name="barcode" type="text" class="form-control @error('barcode') is-invalid @enderror" value="{{ old('barcode', $product->barcode) }}" required>
-                                                <button type="button" onclick="generateBarcode()" class="btn btn-dark">
-                                                    <i class="fas fa-barcode me-1"></i> Generate
-                                                </button>
+                                                <input id="barcode" name="barcode" type="text" class="form-control @error('barcode') is-invalid @enderror" value="{{ old('barcode', $product->barcode) }}" readonly>
                                             </div>
                                             @error('barcode')
                                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -115,15 +135,29 @@
                                         </div>
                                     </div>
 
+                                     <div class="col-6">
+                                        <div class="form-group mb-3">
+                                            <label for="sku" class="form-label fw-medium"> Sku <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="sku" name="sku" type="text" class="form-control @error('sku') is-invalid @enderror" value="{{ old('sku', $product->sku) }}" required>
+                                            </div>
+                                            @error('sku')
+                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-12">
                                         <div class="form-group mb-3">
-                                            <label for="product_description" class="form-label fw-medium">Product Detailed Description</label>
-                                            <textarea class="form-control @error('product_description') is-invalid @enderror" id="product_description" name="product_description" rows="5" placeholder="Enter detailed product description...">{{ old('product_description', $product->product_description ?? '') }}</textarea>
-                                            @error('product_description')
+                                            <label for="details" class="form-label fw-medium">Product Details <span class="text-danger">*</span></label>
+                                            <input id="details" name="details" type="text" class="form-control @error('details') is-invalid @enderror" value="{{ old('details', $product->details) }}">
+                                            @error('details')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

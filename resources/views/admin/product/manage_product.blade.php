@@ -31,10 +31,9 @@
                             <th class="py-3">Product Name</th>
                             <th class="py-3">Barcode</th>
                             <th class="py-3">Category</th>
-                            <th class="py-3">Short Description</th>
-                            <th class="py-3 text-end">Price</th>
-                            <th class="py-3 text-end">Discount Price</th>
-                            <th class="py-3 text-center">Stock</th>
+                            <th class="py-3 text-end"> purchase_price </th>
+                            <th class="py-3 text-end"> Selling Price</th>
+                            <th class="py-3 text-center"> alert_quantity </th>
                             <th class="py-3 text-center" style="width: 120px;">Action</th>
                         </tr>
                     </thead>
@@ -70,32 +69,16 @@
                                 </span>
                             </td>
                             
-                            <td>
-                                <span class="text-muted small text-truncate d-inline-block" style="max-width: 180px;" title="{{ $product->details }}">
-                                    {{ $product->details }}
-                                </span>
-                            </td>
-                            
                             <td class="text-end fw-semibold text-dark">
-                                Tk{{ number_format($product->price, 2) }}
+                                Tk{{ number_format($product->purchase_price, 2) }}
                             </td>
-                            
-                            <td class="text-end">
-                                @if($product->discount_price)
-                                    <span class="text-success fw-medium">Tk{{ number_format($product->discount_price, 2) }}</span>
-                                @else
-                                    <span class="text-muted small">-</span>
-                                @endif
+
+                            <td class="text-end fw-semibold text-dark">
+                                Tk{{ number_format($product->selling_price, 2) }}
                             </td>
                             
                             <td class="text-center">
-                                @if($product->quantity <= 0)
-                                    <span class="badge bg-danger-subtle text-danger px-2 py-1 rounded">Out of stock</span>
-                                @elseif($product->quantity <= 5)
-                                    <span class="badge bg-warning-subtle text-warning px-2 py-1 rounded">{{ $product->quantity }} Low</span>
-                                @else
-                                    <span class="badge bg-success-subtle text-success px-2 py-1 rounded">{{ $product->quantity }} Pcs</span>
-                                @endif
+                                  {{ $product->alert_quantity }}
                             </td>
                             
                             <td>
