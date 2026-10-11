@@ -14,10 +14,6 @@
             <i class="fas fa-tshirt"></i>
         </div>
         <div class="item_card">
-            <p>{{ $total_orders }} <br> Orders</p>
-            <i class="fas fa-cart-arrow-down"></i>
-        </div>
-        <div class="item_card">
             <p>{{ $total_categories }} <br> Categories</p>
             <i class="fas fa-tag"></i>
         </div>
@@ -40,22 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $order)
-                        <tr>
-                            <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
-                            <td>{{ $order->name }}</td>
-                            <!-- <td>{{ $order->address }}</td> -->
-                            <td class="text-center">{{ $order->grand_total }}</td>
-                            <!-- <td>
-                                @if ($order->status == 'pending')
-                                <button class="btn btn-warning"
-                                    style="padding: 5px 10px 5px 10px !important; margin: 0 5px !important;">{{ $order->status }}</button>
-                                @else
-                                <button class="btn btn-danger">{{ $order->status }}</button>
-                                @endif
-                            </td> -->
-                        </tr>
-                        @endforeach
+                       
                     </tbody>
                 </table>
             </div>

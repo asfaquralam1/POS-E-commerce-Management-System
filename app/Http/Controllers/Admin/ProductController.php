@@ -28,22 +28,25 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|unique:products,name',
             'category_id' => 'required',
-            'details' => 'required',
-            'price' => 'required',
-            'discount_price' => 'required',
-            'quantity' => 'required',
+            'brand_id' => 'required',
+            'unit_id' => 'required',
+            'selling_price' => 'required',
+            'purchase_price' => 'required',
+            'alert_quantity' => 'required',
             'barcode' => 'string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'thumbs.*' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $modal = new Product;
+        $modal = new Product();
         $modal->name = $request->name;
         $modal->category_id = $request->category_id;
-        $modal->details = $request->details;
-        $modal->price = $request->price;
-        $modal->discount_price = $request->discount_price;
-        $modal->quantity = $request->quantity;
+        $modal->brand_id = $request->brand_id;
+        $modal->unit_id = $request->unit_id;
+        $modal->sku = $request->sku;
+        $modal->selling_price = $request->selling_price;
+        $modal->purchase_price = $request->purchase_price;
+        $modal->alert_quantity = $request->alert_quantity;
         $modal->barcode = $request->barcode;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -120,21 +123,25 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|unique:products,name',
             'category_id' => 'required',
-            'details' => 'required',
-            'price' => 'required',
-            'discount_price' => 'required',
-            'quantity' => 'required',
+            'brand_id' => 'required',
+            'unit_id' => 'required',
+            'selling_price' => 'required',
+            'purchase_price' => 'required',
+            'alert_quantity' => 'required',
             'barcode' => 'string|max:255',
         ]);
+
         $modal = Product::findOrFail($id);
 
         // Update basic fields
         $modal->name = $request->post('name');
         $modal->category_id = $request->post('category_id');
-        $modal->details = $request->post('details');
-        $modal->price = $request->post('price');
-        $modal->discount_price = $request->post('discount_price');
-        $modal->quantity = $request->post('quantity');
+        $modal->brand_id = $request->post('brand_id');
+        $modal->unit_id = $request->post('unit_id');
+        $modal->sku = $request->post('sku');
+        $modal->purchase_price = $request->post('purchase_price');
+        $modal->selling_price = $request->post('selling_price');
+        $modal->alert_quantity = $request->post('alert_quantity');
 
         // Handle main image
         if ($request->hasFile('image')) {

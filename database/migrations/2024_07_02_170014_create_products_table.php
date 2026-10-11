@@ -18,9 +18,10 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id')->index();
             $table->string('name')->nullable();
             $table->string('details');
-            $table->integer('price');
-            $table->integer('discount_price');
-            $table->integer('quantity');
+            $table->integer('purchase_price');
+            $table->integer('selling_price');
+            $table->integer('alert_quantity');
+            $table->integer('sku')->nullable();
             $table->string('image');
             $table->json('thumbnail');
             $table->string('barcode')->unique();
@@ -28,11 +29,10 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreignId('brand_id')
                 ->nullable()
-                ->constrained('brands')
                 ->nullOnDelete();
 
             $table->foreignId('unit_id')
-                ->constrained('units');
+                ->nullable();
 
             $table->timestamps();
             $table->softDeletes();
