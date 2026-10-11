@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('page_title', 'Product List')
+@section('page_title', 'Products')
 @section('product_select', 'active')
 
 @section('content')

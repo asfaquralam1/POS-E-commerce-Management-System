@@ -1,7 +1,7 @@
 @extends('admin.master')
 
-{{-- @section('page_title', 'Add Product')
-@section('product_select', 'active') --}}
+@section('page_title', 'Create Product')
+@section('product_select', 'active')
 
 @section('content')
     <div class="layout-wrapper">

@@ -22,42 +22,44 @@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <label for="category_name" class="form-label fw-bold">Category Name <span class="text-danger">*</span></label>
-                        <input id="category_name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required placeholder="e.g., Electronics">
+                        <input id="category_name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required placeholder="e.g., Categories">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="category_slug" class="form-label fw-bold">Category Slug <span class="text-danger">*</span></label>
-                        <input id="category_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}" required placeholder="e.g., electronics">
-                        @error('slug')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <label for="editor1" class="form-label fw-bold">Category Details</label>
-                        <textarea id="editor1" name="details" class="form-control @error('details') is-invalid @enderror" rows="5">{{ old('details') }}</textarea>
-                        @error('details')
+                       <label for="editor1" class="form-label fw-bold">Description</label>
+                        <textarea id="editor1" name="description" class="form-control @error('description') is-invalid @enderror" rows="5">{{ old('description') }}</textarea>
+                        @error('description')
                             <div class="text-danger small mt-2">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row mb-4 align-items-center">
-                    <div class="col-md-4 text-center mb-3 mb-md-0">
-                        <div class="image-preview-wrapper border rounded p-2 bg-light d-inline-block">
-                            <img id="imagePreview" src="{{ asset('image/upload.png') }}" alt="Preview" class="img-fluid" style="max-height: 150px; object-fit: contain;">
-                        </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="parent_category" class="form-label fw-bold">Parent Category</label>
+                        <select id="parent_category" name="parent_id" class="form-select @error('parent_id') is-invalid @enderror">
+                            <option value="">Select Parent Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('parent_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-8">
-                        <label for="image" class="form-label fw-bold">Category Image</label>
-                        <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" accept="image/*" onchange="previewImage(event)">
-                        <div class="form-text text-muted">Recommended sizes: 800x800px. Formats: JPG, PNG, WEBP.</div>
-                        @error('image')
+
+                    <div class="col-md-6">
+                        <label for="status" class="form-label fw-bold">Status</label>
+                        <select id="status" name="status" class="form-select @error('status') is-invalid @enderror">
+                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        @error('status')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

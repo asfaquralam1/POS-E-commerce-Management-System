@@ -19,17 +19,19 @@
                 <table id="table" class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th scope="col">Category Name</th>
-                            <th scope="col">Category Slug</th>
-                            <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="text-end pe-3">Action</th>
+                            <th scope="col"> Name </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Parent </th>
+                            <th scope="col" class="text-center"> Status </th>
+                            <th scope="col" class="text-end pe-3"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($categories as $category)
                         <tr>
                             <td class="fw-semibold">{{ $category->name }}</td>
-                            <td class="text-muted">{{ $category->slug }}</td>
+                            <td class="text-ceter">{{ $category->description }}</td>
+                            <td class="text-ceter">{{ $category->parent->name ?? 'No Parent' }}</td>
                             <td class="text-center">
                                 @if ($category->status == 1)
                                     <span class="badge rounded-pill bg-success px-2.5">Active</span>
