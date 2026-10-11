@@ -26,6 +26,13 @@ class CreateProductsTable extends Migration
             $table->string('barcode')->unique();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('brand_id')
+                ->nullable()
+                ->constrained('brands')
+                ->nullOnDelete();
+
+            $table->foreignId('unit_id')
+                ->constrained('units');
 
             $table->timestamps();
             $table->softDeletes();
