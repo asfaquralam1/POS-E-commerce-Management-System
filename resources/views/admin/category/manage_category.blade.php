@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('page_title', 'Category')
+@section('page_title', 'Categories')
 @section('category_select', 'active')
 
 @section('content')

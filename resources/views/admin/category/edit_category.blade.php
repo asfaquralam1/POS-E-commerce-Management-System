@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('page_title', 'Add Category')
+@section('page_title', 'Edit Category')
 @section('category_select', 'active')
 
 @section('content')
@@ -8,7 +8,7 @@
     
     <div class="content-wrapper">
         <div class="card-title d-flex justify-content-between align-items-center mb-4">
-            <h5 class="mb-0">Add New Category</h5>
+            <h5 class="mb-0">Edit Category</h5>
             <a class="btn btn-warning back-btn" href="{{ route('admin.category') }}">
                 <i class="fas fa-backward me-1"></i> Go Back
             </a>
